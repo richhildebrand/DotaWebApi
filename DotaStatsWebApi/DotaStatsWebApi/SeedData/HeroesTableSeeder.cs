@@ -23,8 +23,20 @@ namespace DotaStatsWebApi.SeedData
         {
             var steamHeroResult = _webApi.getHeroInfo();
             var heroes = steamHeroResult.result.heroes;
-            heroes.ForEach(h => _db.Heroes.AddOrUpdate(h));
+            foreach (var hero in heroes)
+            {
+                hero.image_url = GetHeroImageUrl(hero);
+                _db.Heroes.AddOrUpdate(hero);  
+            }
             _db.SaveChanges();
+        }
+  
+        private string GetHeroImageUrl(Hero hero)
+        {
+            var domain = "http://dotawebapi.apphb.com/";
+            var imagePath = "Content/HeroPortraits/";
+            var heroImage = hero.localized_name.Replace(" ", "_") + "_full.png";
+            return domain + imagePath + heroImage;
         }
     }
 }

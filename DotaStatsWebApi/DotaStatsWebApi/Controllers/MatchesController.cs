@@ -27,6 +27,12 @@ namespace DotaStatsWebApi.Controllers
             return matches;
         }
 
+        [System.Web.Http.HttpGet]
+        public Match GetMatchDetails(long matchId)
+        {
+            Match matches = _matchRepository.GetCompleteMatch(matchId);
+            return matches;
+        }
 
     }
 }

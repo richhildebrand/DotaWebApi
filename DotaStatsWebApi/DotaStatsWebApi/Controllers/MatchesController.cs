@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using DotaStatsWebApi.Models;
@@ -9,11 +7,11 @@ using Newtonsoft.Json;
 
 namespace DotaStatsWebApi.Controllers
 {
-    public class MatchController : ApiController
+    public class MatchesController : ApiController
     {
         private readonly AppHarborDB _db;
 
-        public MatchController()
+        public MatchesController()
         {
             _db = new AppHarborDB();
         }

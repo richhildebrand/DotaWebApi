@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -16,11 +17,10 @@ namespace DotaStatsWebApi.Controllers
             _db = new AppHarborDB();
         }
 
-        public ContentResult GetRecentMatches()
+        public List<Match> GetRecentMatches()
         {
             var matches = _db.Matches.ToList();
-            var matchJson = JsonConvert.SerializeObject(matches);
-            return new ContentResult { Content = matchJson, ContentType = "application/json" };
+            return matches;
         }
 
     }

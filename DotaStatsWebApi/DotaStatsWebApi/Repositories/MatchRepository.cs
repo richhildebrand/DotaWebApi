@@ -11,10 +11,21 @@ namespace DotaStatsWebApi.Repositories
         private readonly AppHarborDB _db;
         private readonly MatchPlayerRepository _matchPlayerRepository;
 
-        public MatchRepository(MatchPlayerRepository matchPlayerRepository, AppHarborDB db)
+        public MatchRepository(AppHarborDB db)
         {
-            _matchPlayerRepository = matchPlayerRepository;
             _db = db;
+            _matchPlayerRepository = new MatchPlayerRepository(db);
+        }
+
+        public List<Match> Get25CompleteMatches()
+        {
+            var matches = _db.Matches.Take(25).ToList();
+            foreach (var match in matches)
+            {
+                var matchPlayers = _matchPlayerRepository.GetMatchPlayers(match);
+                match.players = matchPlayers;
+            }
+            return matches;
         }
 
         public void SaveMatches(List<Match> matches)

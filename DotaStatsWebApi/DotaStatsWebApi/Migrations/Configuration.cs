@@ -24,10 +24,7 @@ namespace DotaStatsWebApi.Migrations
             var heroesTableSeeder = new HeroesTableSeeder(webApi, db);
             heroesTableSeeder.PopulateHeroesTable();
 
-            var matchPlayerAbilityRepository = new MatchPlayerAbilityRepository(db);
-            var matchPlayerRepository = new MatchPlayerRepository(matchPlayerAbilityRepository, db);
-            var matchRepository = new MatchRepository(matchPlayerRepository, db);
-
+            var matchRepository = new MatchRepository(db);
             var matchSeeder = new MatchSeeder(matchRepository, webApi, db);
             matchSeeder.Populate25Matches();
             matchSeeder.PopulateDetailsForMatches();

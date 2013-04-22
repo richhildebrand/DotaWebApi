@@ -13,10 +13,16 @@ namespace DotaStatsWebApi.Repositories
         private readonly AppHarborDB _db;
         private MatchPlayerAbilityRepository _matchPlayerAbilityRepository;
 
-        public MatchPlayerRepository(MatchPlayerAbilityRepository matchPlayerAbilityRepository, AppHarborDB db)
-        {
-            _matchPlayerAbilityRepository = matchPlayerAbilityRepository;
+        public MatchPlayerRepository(AppHarborDB db)
+        {            
             _db = db;
+            _matchPlayerAbilityRepository = new MatchPlayerAbilityRepository(db);
+        }
+
+        public List<MatchPlayer> GetMatchPlayers(Match match)
+        {
+            var matchId = match.match_id;
+            return _db.MatchPlayers.Where(mp => mp.match_id == matchId).ToList();
         }
 
         public void AddMatchPlayers(long matchId, List<MatchPlayer> matchPlayers)

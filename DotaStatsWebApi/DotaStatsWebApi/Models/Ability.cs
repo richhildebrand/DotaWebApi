@@ -9,6 +9,7 @@ namespace DotaStatsWebApi.Models
         [Key]
         public int AbilityId { get; set; }
         public int HeroId { get; set; }
+        public int ImageUrl { get; set; }
 
         public Ability(int abilityId, int heroId)
         {

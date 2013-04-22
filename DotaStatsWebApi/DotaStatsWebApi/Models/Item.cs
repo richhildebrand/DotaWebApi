@@ -10,6 +10,7 @@ namespace DotaStatsWebApi.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+        public int ImageUrl { get; set; }
 
         public Item(int id)
         {

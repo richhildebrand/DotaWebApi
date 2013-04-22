@@ -22,7 +22,14 @@ namespace DotaStatsWebApi.Repositories
         public List<MatchPlayer> GetMatchPlayers(Match match)
         {
             var matchId = match.match_id;
-            return _db.MatchPlayers.Where(mp => mp.match_id == matchId).ToList();
+            var matchPlayers = _db.MatchPlayers.Where(mp => mp.match_id == matchId).ToList();
+            foreach (var player in matchPlayers)
+            {
+                var heroId = player.hero_id;
+                var hero = _db.Heroes.First(h => h.id == heroId);
+                player.hero = hero;
+            }
+            return matchPlayers;
         }
 
         public void AddMatchPlayers(long matchId, List<MatchPlayer> matchPlayers)

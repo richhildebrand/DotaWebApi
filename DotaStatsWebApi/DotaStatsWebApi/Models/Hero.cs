@@ -13,5 +13,11 @@ namespace DotaStatsWebApi.Models
         public string name { get; set; }
         public string localized_name { get; set; }
         public string image_url { get; set; }
+
+        public Hero(int heroId)
+        {
+        }
+
+        public Hero() { }
     }
 }

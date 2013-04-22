@@ -21,7 +21,7 @@ namespace DotaStatsWebApi.Migrations
             var webApi = new SteamApiConnector();
             var db = new AppHarborDB();
 
-            var heroesTableSeeder = new HeroesTableSeeder(webApi, db);
+            var heroesTableSeeder = new HeroSeeder(webApi, db);
             heroesTableSeeder.PopulateHeroesTable();
 
             var matchRepository = new MatchRepository(db);

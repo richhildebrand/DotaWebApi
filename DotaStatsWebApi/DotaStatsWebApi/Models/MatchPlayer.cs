@@ -20,7 +20,6 @@ namespace DotaStatsWebApi.Models
         [Key, Column(Order = 2)]
         public int player_slot { get; set; }
 
-        public int hero_id { get; set; }
         public int kills { get; set; }
         public int deaths { get; set; }
         public int assists { get; set; }
@@ -37,7 +36,7 @@ namespace DotaStatsWebApi.Models
 
         public List<MatchPlayerAbility> ability_upgrades { get; set; }
 
-        // TODO: implement item objects
+        // TODO: add items to MatchPlayer
         [NotMapped]
         public int item_0 { get; set; }
         [NotMapped]
@@ -50,5 +49,12 @@ namespace DotaStatsWebApi.Models
         public int item_4 { get; set; }
         [NotMapped]
         public int item_5 { get; set; }
+
+
+        // TODO: create hero instead of heroId        
+        public int hero_id { get; set; }
+        [NotMapped]
+        public Hero hero { get; set; }
+
     }
 }

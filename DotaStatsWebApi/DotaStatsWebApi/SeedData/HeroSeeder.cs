@@ -8,12 +8,12 @@ using DotaStatsWebApi.SteamApi;
 
 namespace DotaStatsWebApi.SeedData
 {
-    public class HeroesTableSeeder
+    public class HeroSeeder
     {
         private readonly SteamApiConnector _webApi;
         private readonly AppHarborDB _db;
 
-        public HeroesTableSeeder(SteamApiConnector webApi, AppHarborDB db)
+        public HeroSeeder(SteamApiConnector webApi, AppHarborDB db)
         {
             _db = db;
             _webApi = webApi;

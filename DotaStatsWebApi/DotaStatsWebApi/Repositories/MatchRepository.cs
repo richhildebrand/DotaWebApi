@@ -17,6 +17,14 @@ namespace DotaStatsWebApi.Repositories
             _matchPlayerRepository = new MatchPlayerRepository(db);
         }
 
+        public Match GetCompleteMatch(long id)
+        {
+            var match = _db.Matches.FirstOrDefault(m => m.match_id == id);
+            var matchPlayers = _matchPlayerRepository.GetMatchPlayers(match);
+            match.players = matchPlayers;
+            return match;
+        }
+
         public List<Match> Get25CompleteMatches()
         {
             var matches = _db.Matches.Take(25).ToList();

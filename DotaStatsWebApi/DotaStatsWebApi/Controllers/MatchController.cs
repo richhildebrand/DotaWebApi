@@ -9,24 +9,22 @@ using Newtonsoft.Json;
 
 namespace DotaStatsWebApi.Controllers
 {
-    public class MatchesController : ApiController
+    public class MatchController : ApiController
     {
         private readonly AppHarborDB _db;
         private readonly MatchRepository _matchRepository;
 
-        public MatchesController()
+        public MatchController()
         {
             _db = new AppHarborDB();
             _matchRepository = new MatchRepository(_db);
         }
 
         [System.Web.Http.HttpGet]
-        public List<Match> GetRecentMatches()
+        public Match Details(long id)
         {
-            List<Match> matches = _matchRepository.Get25CompleteMatches();
+            Match matches = _matchRepository.GetCompleteMatch(id);
             return matches;
         }
-
-
     }
 }

@@ -29,7 +29,7 @@ namespace DotaStatsWebApi.Migrations
             matchSeeder.Populate25Matches();
             matchSeeder.PopulateDetailsForMatches();
 
-            var playerSeeder = new PlayerSeeder();
+            var playerSeeder = new PlayerSeeder(webApi, db);
             playerSeeder.PopulatePlayersFromMatchPlayers();
 
             var itemSeeder = new ItemSeeder(db);

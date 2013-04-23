@@ -6,6 +6,7 @@ using System.Net;
 using DotaStatsWebApi.Models;
 using DotaStatsWebApi.Models.Steam.Heroes;
 using DotaStatsWebApi.Models.Steam.Matches;
+using DotaStatsWebApi.Models.Steam.Players;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -14,14 +15,15 @@ namespace DotaStatsWebApi.SteamApi
     public class SteamApiConnector : WebClient
     {
         private static readonly string key = "key=84D99D637A49766C4725E98DE758BD4D";
-        private static readonly string baseUrl = "https://api.steampowered.com/IDOTA2Match_570/";
+        private static readonly string baseMatchUrl = "https://api.steampowered.com/IDOTA2Match_570/";
+        private static readonly string basePlayerUrl = "http://api.steampowered.com/ISteamUser/";
 
         // example
         // https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=84D99D637A49766C4725E98DE758BD4D
         public List<Match> Get25MostRecentMatches()
         {
             var middlerUrl = "GetMatchHistory/V001/?";
-            var fullUrl = baseUrl + middlerUrl + key;
+            var fullUrl = baseMatchUrl + middlerUrl + key;
             var matchJson = Encoding.Default.GetString(DownloadData(fullUrl));
 
             var matchSteamResult = JsonConvert.DeserializeObject<MatchHistorySteamResult>(matchJson);
@@ -36,7 +38,7 @@ namespace DotaStatsWebApi.SteamApi
             try
             {
                 var middlerUrl = "GetMatchDetails/V001/?match_id=";
-                var fullUrl = baseUrl + middlerUrl + matchId.ToString() + "&" + key;
+                var fullUrl = baseMatchUrl + middlerUrl + matchId.ToString() + "&" + key;
                 var matchJson = System.Text.Encoding.Default.GetString(DownloadData(fullUrl));
 
                 var matchDetails = JsonConvert.DeserializeObject<MatchDetailsSteamResult>(matchJson);
@@ -95,25 +97,20 @@ namespace DotaStatsWebApi.SteamApi
             return heroList;
         }
 
-        /// <summary>
-        /// Returns the JSON string representing the account's Steam Info
-        /// </summary>
-        /// <param name="steamId32"></param>
-        /// <returns></returns>
-        /*public SteamPlayerSummary getPlayerInfo(int steamId32)
+        // example:
+        // https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=84D99D637A49766C4725E98DE758BD4D&steamids=76561198066148159
+        public Player GetPlayerInfo(int accountId)
         {
-            string summaryJson = string.Empty;
-            string fullUrl = string.Empty;
-            SteamPlayerSummary summary = new SteamPlayerSummary();
-            Int64 steamId64 = steamId32 + 76561197960265728;
+            var middleUrl = "GetPlayerSummaries/v0002/?";
+            Int64 steamId = accountId + 76561197960265728;
+            var fullUrl = basePlayerUrl + middleUrl + key + "&steamids=" + steamId;
+            
+            var playerJson = Encoding.Default.GetString(DownloadData(fullUrl));
 
-            BaseAddress = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=84D99D637A49766C4725E98DE758BD4D&steamids=";
-            fullUrl = string.Format("{0}{1}", BaseAddress, steamId64);
-            summaryJson = System.Text.Encoding.Default.GetString(DownloadData(fullUrl));
+            var steamResponse = JsonConvert.DeserializeObject<PlayerSteamResponse>(playerJson);
+            var playerInfo = steamResponse.response.players.First();
 
-            summary = JsonConvert.DeserializeObject<SteamPlayerSummary>(summaryJson);
-
-            return summary;
-        }*/
+            return playerInfo;
+        }
     }
 }

@@ -130,6 +130,8 @@
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Models\Ability.cs" />
+    <Compile Include="Models\Steam\Players\PlayersFromSteam.cs" />
+    <Compile Include="Models\Steam\Players\PlayerSteamResponse.cs" />
     <Compile Include="Repositories\AbilityRepository.cs" />
     <Compile Include="SeedData\AbilitySeeder.cs" />
     <Compile Include="Models\Item.cs" />

@@ -20,8 +20,7 @@ namespace DotaStatsWebApi.Repositories
         public Match GetCompleteMatch(long id)
         {
             var match = _db.Matches.FirstOrDefault(m => m.match_id == id);
-            var matchPlayers = _matchPlayerRepository.GetMatchPlayers(match);
-            match.players = matchPlayers;
+            CompleteThisMatch(match);
             return match;
         }
 
@@ -30,10 +29,16 @@ namespace DotaStatsWebApi.Repositories
             var matches = _db.Matches.Take(25).ToList();
             foreach (var match in matches)
             {
-                var matchPlayers = _matchPlayerRepository.GetMatchPlayers(match);
-                match.players = matchPlayers;
+                CompleteThisMatch(match);
+                
             }
             return matches;
+        }
+
+        private void CompleteThisMatch(Match match)
+        {
+            var matchPlayers = _matchPlayerRepository.GetMatchPlayers(match);
+            match.players = matchPlayers;
         }
 
         public void SaveMatches(List<Match> matches)

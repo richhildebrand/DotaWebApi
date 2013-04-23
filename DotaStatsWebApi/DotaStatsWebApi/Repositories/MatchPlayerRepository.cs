@@ -28,6 +28,10 @@ namespace DotaStatsWebApi.Repositories
                 var heroId = player.hero_id;
                 var hero = _db.Heroes.First(h => h.id == heroId);
                 player.hero = hero;
+
+                var accountId = player.account_id;
+                var playerInfo = _db.Players.FirstOrDefault(p => p.account_id == player.account_id);
+                player.playerInformation = playerInfo;
             }
             return matchPlayers;
         }

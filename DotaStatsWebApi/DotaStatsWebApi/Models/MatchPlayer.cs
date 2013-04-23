@@ -49,12 +49,13 @@ namespace DotaStatsWebApi.Models
         public int item_4 { get; set; }
         [NotMapped]
         public int item_5 { get; set; }
-
-
-        // TODO: create hero instead of heroId        
+     
         public int hero_id { get; set; }
+        
+        // Used when returning data
         [NotMapped]
         public Hero hero { get; set; }
-
+        [NotMapped]
+        public Player playerInformation { get; set; }
     }
 }

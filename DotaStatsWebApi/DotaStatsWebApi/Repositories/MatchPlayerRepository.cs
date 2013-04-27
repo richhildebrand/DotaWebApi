@@ -23,17 +23,26 @@ namespace DotaStatsWebApi.Repositories
         {
             var matchId = match.match_id;
             var matchPlayers = _db.MatchPlayers.Where(mp => mp.match_id == matchId).ToList();
-            foreach (var player in matchPlayers)
+            foreach (var matchPlayer in matchPlayers)
             {
-                var heroId = player.hero_id;
-                var hero = _db.Heroes.First(h => h.id == heroId);
-                player.hero = hero;
-
-                var accountId = player.account_id;
-                var playerInfo = _db.Players.FirstOrDefault(p => p.account_id == player.account_id);
-                player.playerInformation = playerInfo;
+                CompleteMatchPlayer(matchPlayer);
             }
             return matchPlayers;
+        }
+
+        public void CompleteMatchPlayer(MatchPlayer matchPlayer)
+        {
+            var heroId = matchPlayer.hero_id;
+            var hero = _db.Heroes.First(h => h.id == heroId);
+            matchPlayer.hero = hero;
+
+            var accountId = matchPlayer.account_id;
+            var playerInfo = _db.Players.FirstOrDefault(p => p.account_id == matchPlayer.account_id);
+            matchPlayer.playerInformation = playerInfo;
+
+            var matchPlayerItemRepository = new MatchPlayerItemRepository(matchPlayer,_db);
+            var items = matchPlayerItemRepository.GetItems();
+            matchPlayer.matchPlayerItems = items;
         }
 
         public void AddMatchPlayers(long matchId, List<MatchPlayer> matchPlayers)

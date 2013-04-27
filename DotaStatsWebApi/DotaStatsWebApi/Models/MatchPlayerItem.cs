@@ -26,5 +26,9 @@ namespace DotaStatsWebApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key, Column(Order = 4)]
         public int ItemSlot { get; set; }
+
+        // used when returning data
+        [NotMapped]
+        public Item item { get; set; }
     }
 }

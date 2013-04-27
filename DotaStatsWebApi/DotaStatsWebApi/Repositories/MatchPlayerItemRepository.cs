@@ -17,6 +17,18 @@ namespace DotaStatsWebApi.Repositories
             _db = db;
         }
 
+        public List<MatchPlayerItem> GetItems()
+        {
+            var items = _db.MatchPlayerItems.Where(mpi => mpi.account_id == _matchPlayer.account_id
+                                           && mpi.player_slot == _matchPlayer.player_slot
+                                           && mpi.match_id == _matchPlayer.match_id).ToList();
+            foreach (var item in items)
+            {
+                item.item = _db.Items.FirstOrDefault(i => i.Id == item.ItemId);
+            }
+            return items.ToList();
+        }
+
         public void AddMatchPlayerItems()
         {
             var matchPlayerItems = BuildMatchPlayerItemList();

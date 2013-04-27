@@ -57,5 +57,7 @@ namespace DotaStatsWebApi.Models
         public Hero hero { get; set; }
         [NotMapped]
         public Player playerInformation { get; set; }
+        [NotMapped]
+        public List<MatchPlayerItem> matchPlayerItems { get; set; }
     }
 }

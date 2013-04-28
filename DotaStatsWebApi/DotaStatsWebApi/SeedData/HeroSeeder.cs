@@ -33,7 +33,9 @@ namespace DotaStatsWebApi.SeedData
   
         private string GetHeroImageUrl(Hero hero)
         {
-            var domain = "http://dotawebapi.apphb.com/";
+            //not sure what appharbor's problem is :\
+            var domain = "https://raw.github.com/richhildebrand/DotaWebApi/master/DotaStatsWebApi/DotaStatsWebApi/Content/";
+            //var domain = "http://dotawebapi.apphb.com/";
             var imagePath = "Content/HeroPortraits/";
             var heroImage = hero.localized_name.Replace(" ", "_") + "_full.png";
             return domain + imagePath + heroImage;

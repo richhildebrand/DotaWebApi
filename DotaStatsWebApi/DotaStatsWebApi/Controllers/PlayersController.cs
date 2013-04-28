@@ -12,12 +12,12 @@ namespace DotaStatsWebApi.Controllers
     public class PlayersController : ApiController
     {
         private readonly AppHarborDB _db;
-        private readonly MatchRepository _matchRepository;
+        private readonly MatchPlayerRepository _matchPlayerRepository;
 
         public PlayersController()
         {
             _db = new AppHarborDB();
-            _matchRepository = new MatchRepository(_db);
+            _matchPlayerRepository = new MatchPlayerRepository(_db);
         }
 
         [System.Web.Http.HttpGet]
@@ -26,9 +26,11 @@ namespace DotaStatsWebApi.Controllers
             var matchPlayers =_db.MatchPlayers.Where(p => p.account_id == steamid32).ToList();
             var matches = new List<Match>();
             foreach (var matchPlayer in matchPlayers)
-            {
-                var matchId = matchPlayer.match_id;
-                var match = _matchRepository.GetCompleteMatch(matchId);
+            {              
+                _matchPlayerRepository.CompleteMatchPlayer(matchPlayer);
+                var match = _db.Matches.First(m => m.match_id == matchPlayer.match_id);
+                match.players = new List<MatchPlayer>();
+                match.players.Add(matchPlayer);
                 matches.Add(match);
             }
             return matches;

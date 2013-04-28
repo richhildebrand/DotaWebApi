@@ -35,6 +35,17 @@ namespace DotaStatsWebApi.Repositories
             return matches;
         }
 
+        public List<Match> GetAllCompleteMatches()
+        {
+            var matches = _db.Matches.Take(25).ToList();
+            foreach (var match in matches)
+            {
+                CompleteThisMatch(match);
+
+            }
+            return matches;
+        }
+
         private void CompleteThisMatch(Match match)
         {
             var matchPlayers = _matchPlayerRepository.GetMatchPlayers(match);

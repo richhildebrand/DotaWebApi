@@ -36,9 +36,12 @@ namespace DotaStatsWebApi.SeedData
                 if (!accountIds.Contains(accountId))
                 {
                     accountIds.Add(accountId);
-                    var player = _webApi.GetPlayerInfo(Convert.ToInt32(accountId));
-                    player.account_id = accountId;
-                    _db.Players.AddOrUpdate(player);
+                    var player = _webApi.TryGetPlayerInfo((accountId));
+                    if (player != null)
+                    {
+                        player.account_id = accountId;
+                        _db.Players.AddOrUpdate(player);
+                    }
                 }
             }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using DotaStatsWebApi.Models;
@@ -25,6 +26,15 @@ namespace DotaStatsWebApi.SeedData
         {
             var matches = _db.Matches.ToList();
 
+            foreach (var match in matches)
+            {
+                PopulateDetailsForMatch(match);
+            }
+            _db.SaveChanges();
+        }
+
+        public void PopulateDetailsForMatches(List<Match> matches)
+        {
             foreach (var match in matches)
             {
                 PopulateDetailsForMatch(match);

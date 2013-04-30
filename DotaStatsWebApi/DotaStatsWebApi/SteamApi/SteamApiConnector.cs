@@ -39,7 +39,7 @@ namespace DotaStatsWebApi.SteamApi
             {
                 var middlerUrl = "GetMatchDetails/V001/?match_id=";
                 var fullUrl = baseMatchUrl + middlerUrl + matchId.ToString() + "&" + key;
-                var matchJson = System.Text.Encoding.Default.GetString(DownloadData(fullUrl));
+                var matchJson = Encoding.Default.GetString(DownloadData(fullUrl));
 
                 var matchDetails = JsonConvert.DeserializeObject<MatchDetailsSteamResult>(matchJson);
                 return matchDetails.result;
@@ -47,20 +47,22 @@ namespace DotaStatsWebApi.SteamApi
             catch { return null; }
         }
 
-        /*public MatchHistory getInitialMatchHistory(int steamId32)
+        // example:
+        // https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id=104861043&key=84D99D637A49766C4725E98DE758BD4D
+        public List<Match> TryGetPlayerMatchHistory(string steamId32)
         {
-            string historyJson = string.Empty;
-            string fullUrl = string.Empty;
-            MatchHistory matchHistory = new MatchHistory();
+            try
+            {
+                var middleUrl = "GetMatchHistory/V001/?account_id=";
+                var fullUrl = baseMatchUrl + middleUrl + steamId32 + "&" + key;
+                var matchJson = Encoding.Default.GetString(DownloadData(fullUrl));
 
-            BaseAddress = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id=";
-            fullUrl = string.Format("{0}{1}&key=84D99D637A49766C4725E98DE758BD4D", BaseAddress, steamId32);
-            historyJson = System.Text.Encoding.Default.GetString(DownloadData(fullUrl));
+                var matchSteamResult = JsonConvert.DeserializeObject<MatchHistorySteamResult>(matchJson);
 
-            matchHistory = JsonConvert.DeserializeObject<MatchHistory>(historyJson);
-
-            return matchHistory;
-        }*/
+                return matchSteamResult.result.matches;
+            }
+            catch { return null; }
+        }
 
         /// <summary>
         /// Gets the next 25 match histories from Valve API
@@ -99,18 +101,22 @@ namespace DotaStatsWebApi.SteamApi
 
         // example:
         // https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=84D99D637A49766C4725E98DE758BD4D&steamids=76561198066148159
-        public Player GetPlayerInfo(int accountId)
+        public Player TryGetPlayerInfo(string accountId)
         {
-            var middleUrl = "GetPlayerSummaries/v0002/?";
-            Int64 steamId = accountId + 76561197960265728;
-            var fullUrl = basePlayerUrl + middleUrl + key + "&steamids=" + steamId;
-            
-            var playerJson = Encoding.Default.GetString(DownloadData(fullUrl));
+            try
+            {
+                var middleUrl = "GetPlayerSummaries/v0002/?";
+                Int64 steamId = Convert.ToInt64(accountId) + 76561197960265728;
+                var fullUrl = basePlayerUrl + middleUrl + key + "&steamids=" + steamId;
 
-            var steamResponse = JsonConvert.DeserializeObject<PlayerSteamResponse>(playerJson);
-            var playerInfo = steamResponse.response.players.First();
+                var playerJson = Encoding.Default.GetString(DownloadData(fullUrl));
 
-            return playerInfo;
+                var steamResponse = JsonConvert.DeserializeObject<PlayerSteamResponse>(playerJson);
+                var playerInfo = steamResponse.response.players.First();
+
+                return playerInfo;
+            }
+            catch { return null; }
         }
     }
 }

@@ -26,7 +26,7 @@ namespace DotaStatsWebApi.Repositories
 
         public List<Match> Get25CompleteMatches()
         {
-            var matches = _db.Matches.Take(25).ToList();
+            var matches = _db.Matches.OrderBy(m => m.match_id).Take(25).ToList();
             foreach (var match in matches)
             {
                 CompleteThisMatch(match);

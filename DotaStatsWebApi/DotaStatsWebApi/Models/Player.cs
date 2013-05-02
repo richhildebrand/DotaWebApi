@@ -20,7 +20,7 @@ namespace DotaStatsWebApi.Models
         public string avatarmedium { get; set; }
         public string avatarfull { get; set; }
         public string personastate { get; set; }
-        public string primaryclanid { get; set; }
+        public int primaryclanid { get; set; }
         public string timecreated { get; set; }
 
         public Player() { }

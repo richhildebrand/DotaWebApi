@@ -129,6 +129,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
+    <Compile Include="Helpers\ClanHelper.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
+    <Compile Include="Models\Clan.cs" />
+    <Compile Include="Models\Steam\Teams\TeamsFromSteam.cs" />
+    <Compile Include="Models\Steam\Teams\TeamSteamResult.cs" />
+    <Compile Include="SeedData\ClanSeeder.cs" />
     <Compile Include="Models\Ability.cs" />
     <Compile Include="Models\Steam\Players\PlayersFromSteam.cs" />
     <Compile Include="Models\Steam\Players\PlayerSteamResponse.cs" />
@@ -167,6 +173,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ClanPortraits\clanImage0.PNG" />
+    <Content Include="Content\ClanPortraits\clanImage1.PNG" />
+    <Content Include="Content\ClanPortraits\clanImage2.PNG" />
+    <Content Include="Content\ClanPortraits\clanImage3.PNG" />
+    <Content Include="Content\ClanPortraits\clanImage4.PNG" />
+    <Content Include="Content\ClanPortraits\clanImage5.png" />
+    <Content Include="Content\ClanPortraits\clanImage6.png" />
+    <Content Include="Content\ClanPortraits\clanImage7.png" />
+    <Content Include="Content\ClanPortraits\clanImage8.png" />
+    <Content Include="Content\ClanPortraits\clanImage9.png" />
     <Content Include="Content\HeroPortraits\alchemist_full.png" />
     <Content Include="Content\HeroPortraits\ancient_apparition_full.png" />
     <Content Include="Content\HeroPortraits\Anti-Mage_Full.png" />

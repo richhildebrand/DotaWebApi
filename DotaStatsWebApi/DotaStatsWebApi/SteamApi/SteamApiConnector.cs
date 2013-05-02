@@ -7,6 +7,7 @@ using DotaStatsWebApi.Models;
 using DotaStatsWebApi.Models.Steam.Heroes;
 using DotaStatsWebApi.Models.Steam.Matches;
 using DotaStatsWebApi.Models.Steam.Players;
+using DotaStatsWebApi.Models.Steam.Teams;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -97,6 +98,18 @@ namespace DotaStatsWebApi.SteamApi
             heroList = JsonConvert.DeserializeObject<HeroSteamResult>(heroJson);
 
             return heroList;
+        }
+
+        // example:
+        // https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/v001/?key=84D99D637A49766C4725E98DE758BD4D&teams_requested=25
+        public List<Clan> GetClanInfo()
+        {
+            var middlerUrl = "GetTeamInfoByTeamID/v001/?";
+            var fullUrl = baseMatchUrl + middlerUrl + key + "&teams_requested=25";
+            var clanJson = Encoding.Default.GetString(DownloadData(fullUrl));
+
+            var teamResult = JsonConvert.DeserializeObject<TeamSteamResult>(clanJson);
+            return teamResult.result.teams;
         }
 
         // example:

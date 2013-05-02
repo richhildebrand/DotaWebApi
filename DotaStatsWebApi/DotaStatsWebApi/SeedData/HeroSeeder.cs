@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using DotaStatsWebApi.Helpers;
 using DotaStatsWebApi.Models;
 using DotaStatsWebApi.Models.Steam;
 using DotaStatsWebApi.Models.Steam.Heroes;
@@ -33,10 +34,8 @@ namespace DotaStatsWebApi.SeedData
   
         private string GetHeroImageUrl(Hero hero)
         {
-            //not sure what appharbor's problem is :\
-            var domain = "https://raw.github.com/richhildebrand/DotaWebApi/master/DotaStatsWebApi/DotaStatsWebApi/";
-            //var domain = "http://dotawebapi.apphb.com/";
-            var imagePath = "Content/HeroPortraits/";
+            var domain = UrlHelper.GetImageUrlBase();
+            var imagePath = "HeroPortraits/";
             var heroImage = hero.localized_name.Replace(" ", "_") + "_full.png";
             return domain + imagePath + heroImage;
         }

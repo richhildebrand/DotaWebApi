@@ -24,7 +24,7 @@ namespace DotaStatsWebApi.SeedData
 
         public void PopulateDetailsForMatches()
         {
-            var matches = _db.Matches.ToList();
+            var matches = _db.Matches.OrderBy(m => m.duration).Take(100).ToList();
 
             foreach (var match in matches)
             {

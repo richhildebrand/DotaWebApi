@@ -102,7 +102,7 @@ namespace DotaStatsWebApi.SteamApi
 
         // example:
         // https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/v001/?key=84D99D637A49766C4725E98DE758BD4D&teams_requested=25
-        public List<Clan> GetClanInfo()
+        public List<Clan> GetClans()
         {
             var middlerUrl = "GetTeamInfoByTeamID/v001/?";
             var fullUrl = baseMatchUrl + middlerUrl + key + "&teams_requested=25";

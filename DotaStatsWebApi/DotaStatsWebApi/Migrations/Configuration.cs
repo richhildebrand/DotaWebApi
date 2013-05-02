@@ -38,8 +38,8 @@ namespace DotaStatsWebApi.Migrations
             var abilitySeeder = new AbilitySeeder(db);
             abilitySeeder.PopulateAbilitiesFromMatchPlayerAbilities();
 
-            var clanSeeder = new ClanSeeder(db);
-            clanSeeder.PopulateClansFromPlayers();
+            var clanSeeder = new ClanSeeder(webApi, db);
+            clanSeeder.PopulateClans();
         }
     }
 }

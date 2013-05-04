@@ -43,7 +43,7 @@ namespace DotaStatsWebApi.Migrations
         {
             try
             {
-                Convert.ToInt32(accountId);
+                int.Parse(accountId);
                 accountIds.Add(accountId);
             }
             catch { }

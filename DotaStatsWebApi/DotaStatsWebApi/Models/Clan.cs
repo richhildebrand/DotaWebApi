@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
@@ -7,6 +8,7 @@ namespace DotaStatsWebApi.Models
     public class Clan
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
         public int team_id { get; set; }
         public string name { get; set;}
         public string tag { get; set;}
@@ -24,6 +26,8 @@ namespace DotaStatsWebApi.Models
         public string player_4_account_id { get;set;}
         public string player_5_account_id { get;set;}
         public string admin_account_id { get;set;}
+
+        public Clan() { }
 
         public Clan(int clanId)
         {

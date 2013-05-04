@@ -105,7 +105,7 @@ namespace DotaStatsWebApi.SteamApi
         public List<Clan> GetClans()
         {
             var middlerUrl = "GetTeamInfoByTeamID/v001/?";
-            var fullUrl = baseMatchUrl + middlerUrl + key + "&teams_requested=25";
+            var fullUrl = baseMatchUrl + middlerUrl + key + "&teams_requested=100";
             var clanJson = Encoding.Default.GetString(DownloadData(fullUrl));
 
             var teamResult = JsonConvert.DeserializeObject<TeamSteamResult>(clanJson);

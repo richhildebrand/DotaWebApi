@@ -20,7 +20,7 @@ namespace DotaStatsWebApi.SeedData
             _webApi = webApi;
         }
 
-        public void PopulateHeroesTable()
+        public void PopulateHeroes()
         {
             var steamHeroResult = _webApi.getHeroInfo();
             var heroes = steamHeroResult.result.heroes;

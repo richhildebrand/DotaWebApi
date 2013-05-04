@@ -28,16 +28,17 @@ namespace DotaStatsWebApi.Migrations
             var heroSeeder = new HeroSeeder(webApi, db);
             var clanSeeder = new ClanSeeder(webApi, db);
 
-            heroSeeder.PopulateHeroesTable();
-
             clanSeeder.PopulateClans();
-            //matchSeeder.Populate25Matches();
+            heroSeeder.PopulateHeroes();
             matchSeeder.Populate5Matches();
-            matchSeeder.PopulateDetailsForMatches();
 
             playerSeeder.PopulatePlayersFromClanPlayers();
             playerSeeder.PopulatePlayersFromMatchPlayers();
 
+            matchSeeder.PopulateMatchesFromPlayers();
+            
+            matchSeeder.PopulateDetailsForMatches();
+            
             itemSeeder.PopulateItemsFromMatchPlayerItems();
             abilitySeeder.PopulateAbilitiesFromMatchPlayerAbilities();
             

@@ -22,7 +22,8 @@ namespace DotaStatsWebApi.Migrations
         public void PopulateClans()
         {
             var clans = _webApi.GetClans();
-            var accountIds = new List<string>();
+            clans = clans.Where(c => c.rating != "inactive").ToList();
+
             foreach (var clan in clans)
             {
                 TryAddClanPlayer(clan.player_0_account_id, clan.team_id);

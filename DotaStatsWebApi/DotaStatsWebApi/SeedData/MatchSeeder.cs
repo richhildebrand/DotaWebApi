@@ -22,6 +22,17 @@ namespace DotaStatsWebApi.SeedData
             _matchRepository = new MatchRepository(db);
         }
 
+        public void PopulateMatchesFromPlayers()
+        {
+            var playerIds = _db.Players.Select(p => p.account_id).ToList();
+            foreach (var playerId in playerIds)
+	        {
+                var playerMatches = _steamApi.TryGetPlayerMatchHistory(playerId);
+                playerMatches = playerMatches.Take(5).ToList();
+                _matchRepository.SaveMatches(playerMatches);
+	        }
+        }
+
         public void PopulateDetailsForMatches()
         {
             var matches = _db.Matches.OrderBy(m => m.duration).Take(100).ToList();

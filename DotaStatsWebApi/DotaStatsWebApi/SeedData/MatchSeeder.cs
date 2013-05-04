@@ -28,20 +28,28 @@ namespace DotaStatsWebApi.SeedData
             foreach (var playerId in playerIds)
 	        {
                 var playerMatches = _steamApi.TryGetPlayerMatchHistory(playerId);
-                playerMatches = playerMatches.Take(5).ToList();
-                _matchRepository.SaveMatches(playerMatches);
+                if (playerMatches != null)
+                {
+                    playerMatches = playerMatches.Take(5).ToList();
+                    _matchRepository.SaveMatches(playerMatches);
+                }
 	        }
         }
 
         public void PopulateDetailsForMatches()
         {
-            var matches = _db.Matches.OrderBy(m => m.duration).Take(100).ToList();
+            var allMatches = _db.Matches.OrderBy(m => m.duration).ToList();
+            var matchCount = allMatches.Count();
 
-            foreach (var match in matches)
+            for (int i = 0; i < matchCount; i += 25)
             {
-                PopulateDetailsForMatch(match);
+                var matches = allMatches.Skip(i).Take(25).ToList();
+                foreach (var match in matches)
+                {
+                    PopulateDetailsForMatch(match);
+                }
+                _db.SaveChanges();
             }
-            _db.SaveChanges();
         }
 
         public void PopulateDetailsForMatches(List<Match> matches)

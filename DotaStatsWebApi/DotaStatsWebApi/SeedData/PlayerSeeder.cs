@@ -26,11 +26,10 @@ namespace DotaStatsWebApi.SeedData
             var clanPlayerIds = _db.ClanPlayers.Select(p => p.AccountId)
                                                .Distinct()
                                                .ToList();
-            AddPlayers(clanPlayerIds);
-            _db.SaveChanges();
+            AddAndSavePlayers(clanPlayerIds);
         }
 
-        private void AddPlayers(List<string> accountIds)
+        private void AddAndSavePlayers(List<string> accountIds)
         {
             foreach (var accountId in accountIds)
             {
@@ -41,34 +40,15 @@ namespace DotaStatsWebApi.SeedData
                     _db.Players.AddOrUpdate(player); 
                 }
             }
+            _db.SaveChanges();
         }
 
         public void PopulatePlayersFromMatchPlayers()
         {
-            var matchPlayers = _db.MatchPlayers.ToList();
-
-            var accountIds = new List<string>();
-            //Avoid trying to populate these ids
-            accountIds.Add("Guest");
-            accountIds.Add("Anonymous");
-
-            foreach (var matchPlayer in matchPlayers)
-            {
-                var accountId = matchPlayer.account_id;
-                if (!accountIds.Contains(accountId))
-                {
-                    accountIds.Add(accountId);
-                    var player = _webApi.TryGetPlayerInfo((accountId));
-                    if (player != null)
-                    {
-                        player.account_id = accountId;
-                        _db.Players.AddOrUpdate(player);
-                    }
-                }
-            }
-
-            //playerRepository.CreateAndAddPlayers(accountIds);
-            _db.SaveChanges();
+            var matchPlayerIds = _db.MatchPlayers.Select(mp => mp.account_id)
+                                                .Distinct()
+                                                .ToList();
+            AddAndSavePlayers(matchPlayerIds);
         }
     }
 }

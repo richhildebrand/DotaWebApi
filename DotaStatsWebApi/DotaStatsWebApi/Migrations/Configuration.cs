@@ -35,8 +35,9 @@ namespace DotaStatsWebApi.Migrations
             matchSeeder.Populate5Matches();
             matchSeeder.PopulateDetailsForMatches();
 
-            // populate playersFromClanPlayers
+            playerSeeder.PopulatePlayersFromClanPlayers();
             playerSeeder.PopulatePlayersFromMatchPlayers();
+
             itemSeeder.PopulateItemsFromMatchPlayerItems();
             abilitySeeder.PopulateAbilitiesFromMatchPlayerAbilities();
             

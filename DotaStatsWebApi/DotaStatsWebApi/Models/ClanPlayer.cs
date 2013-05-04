@@ -13,11 +13,11 @@ namespace DotaStatsWebApi.Models
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key, Column(Order = 1)]
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
         public ClanPlayer() { }
 
-        public ClanPlayer(int accountId, int clanId)
+        public ClanPlayer(string accountId, int clanId)
         {
             ClanId = clanId;
             AccountId = accountId;

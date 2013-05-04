@@ -21,6 +21,28 @@ namespace DotaStatsWebApi.SeedData
             _playerRepository = new PlayerRepository(db);
         }
 
+        public void PopulatePlayersFromClanPlayers()
+        {
+            var clanPlayerIds = _db.ClanPlayers.Select(p => p.AccountId)
+                                               .Distinct()
+                                               .ToList();
+            AddPlayers(clanPlayerIds);
+            _db.SaveChanges();
+        }
+
+        private void AddPlayers(List<string> accountIds)
+        {
+            foreach (var accountId in accountIds)
+            {
+                var player = _webApi.TryGetPlayerInfo(accountId);
+                if (player != null)
+                {
+                    player.account_id = accountId;
+                    _db.Players.AddOrUpdate(player); 
+                }
+            }
+        }
+
         public void PopulatePlayersFromMatchPlayers()
         {
             var matchPlayers = _db.MatchPlayers.ToList();

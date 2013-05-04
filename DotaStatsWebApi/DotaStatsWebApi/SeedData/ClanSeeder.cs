@@ -40,8 +40,8 @@ namespace DotaStatsWebApi.Migrations
         {
             try
             {
-                int validAccountId = int.Parse(accountId);
-                var clanPlayer = new ClanPlayer(validAccountId, clanId);
+                int.Parse(accountId);
+                var clanPlayer = new ClanPlayer(accountId, clanId);
                 _db.ClanPlayers.AddOrUpdate(clanPlayer);
             }
             catch { }

@@ -12,13 +12,11 @@ namespace DotaStatsWebApi.SeedData
     {
         private readonly SteamApiConnector _webApi;
         private readonly AppHarborDB _db;
-        private PlayerRepository _playerRepository;
 
         public PlayerSeeder(SteamApiConnector webApi, AppHarborDB db)
         {
             _webApi = webApi;
             _db = db;
-            _playerRepository = new PlayerRepository(db);
         }
 
         public void PopulatePlayersFromClanPlayers()
@@ -29,6 +27,14 @@ namespace DotaStatsWebApi.SeedData
             AddAndSavePlayers(clanPlayerIds);
         }
 
+        public void PopulatePlayersFromMatchPlayers()
+        {
+            var matchPlayerIds = _db.MatchPlayers.Select(mp => mp.account_id)
+                                                .Distinct()
+                                                .ToList();
+            AddAndSavePlayers(matchPlayerIds);
+        }
+
         private void AddAndSavePlayers(List<string> accountIds)
         {
             foreach (var accountId in accountIds)
@@ -37,18 +43,10 @@ namespace DotaStatsWebApi.SeedData
                 if (player != null)
                 {
                     player.account_id = accountId;
-                    _db.Players.AddOrUpdate(player); 
+                    _db.Players.AddOrUpdate(player);
                 }
             }
             _db.SaveChanges();
-        }
-
-        public void PopulatePlayersFromMatchPlayers()
-        {
-            var matchPlayerIds = _db.MatchPlayers.Select(mp => mp.account_id)
-                                                .Distinct()
-                                                .ToList();
-            AddAndSavePlayers(matchPlayerIds);
         }
     }
 }

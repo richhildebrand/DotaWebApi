@@ -126,12 +126,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ClansController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatchesController.cs" />
     <Compile Include="Controllers\PlayersController.cs" />
     <Compile Include="Helpers\ClanHelper.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Models\Clan.cs" />
+    <Compile Include="Models\ClanPlayer.cs" />
     <Compile Include="Models\Steam\Teams\TeamsFromSteam.cs" />
     <Compile Include="Models\Steam\Teams\TeamSteamResult.cs" />
     <Compile Include="SeedData\ClanSeeder.cs" />

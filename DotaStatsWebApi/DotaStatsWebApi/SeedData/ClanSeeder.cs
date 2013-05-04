@@ -25,26 +25,24 @@ namespace DotaStatsWebApi.Migrations
             var accountIds = new List<string>();
             foreach (var clan in clans)
             {
-                TryAddAccountId(clan.player_0_account_id, accountIds);
-                TryAddAccountId(clan.player_1_account_id, accountIds);
-                TryAddAccountId(clan.player_2_account_id, accountIds);
-                TryAddAccountId(clan.player_3_account_id, accountIds);
-                TryAddAccountId(clan.player_4_account_id, accountIds);
-                TryAddAccountId(clan.player_5_account_id, accountIds);
+                TryAddClanPlayer(clan.player_0_account_id, clan.team_id);
+                TryAddClanPlayer(clan.player_1_account_id, clan.team_id);
+                TryAddClanPlayer(clan.player_2_account_id, clan.team_id);
+                TryAddClanPlayer(clan.player_3_account_id, clan.team_id);
+                TryAddClanPlayer(clan.player_4_account_id, clan.team_id);
+                TryAddClanPlayer(clan.player_5_account_id, clan.team_id);
             }
-            accountIds.Distinct()
-                      .ToList()
-                      .ForEach(id => _db.Players.AddOrUpdate(new Player(id)));
             clans.ForEach(c => _db.Clans.AddOrUpdate(c));    
             _db.SaveChanges();
         }
 
-        private void TryAddAccountId(string accountId, List<string> accountIds)
+        private void TryAddClanPlayer(string accountId, int clanId)
         {
             try
             {
-                int.Parse(accountId);
-                accountIds.Add(accountId);
+                int validAccountId = int.Parse(accountId);
+                var clanPlayer = new ClanPlayer(validAccountId, clanId);
+                _db.ClanPlayers.AddOrUpdate(clanPlayer);
             }
             catch { }
         }

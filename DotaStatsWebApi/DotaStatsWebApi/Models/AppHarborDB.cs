@@ -13,6 +13,7 @@ namespace DotaStatsWebApi.Models
         public DbSet<Ability> Abilities { get; set; }
         public DbSet<Clan> Clans { get; set; }
 
+        public DbSet<ClanPlayer> ClanPlayers { get; set; }
         public DbSet<MatchPlayer> MatchPlayers { get; set; }
         public DbSet<MatchPlayerItem> MatchPlayerItems { get; set; }
         public DbSet<MatchPlayerAbility> MatchPlayerAbilities { get; set; }

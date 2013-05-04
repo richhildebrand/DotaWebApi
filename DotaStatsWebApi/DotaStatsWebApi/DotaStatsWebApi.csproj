@@ -227,7 +227,6 @@
     <Content Include="Content\HeroPortraits\lion_full.png" />
     <Content Include="Content\HeroPortraits\lone_druid_full.png" />
     <Content Include="Content\HeroPortraits\luna_full.png" />
-    <Content Include="Content\HeroPortraits\lycan_full.png" />
     <Content Include="Content\HeroPortraits\magnus_full.png" />
     <Content Include="Content\HeroPortraits\medusa_full.png" />
     <Content Include="Content\HeroPortraits\meepo_full.png" />

@@ -21,25 +21,25 @@ namespace DotaStatsWebApi.Migrations
             var webApi = new SteamApiConnector();
             var db = new AppHarborDB();
 
-            var heroesTableSeeder = new HeroSeeder(webApi, db);
-            heroesTableSeeder.PopulateHeroesTable();
+            var abilitySeeder = new AbilitySeeder(db);
+            var itemSeeder = new ItemSeeder(db);
+            var playerSeeder = new PlayerSeeder(webApi, db);
+            var matchSeeder = new MatchSeeder(webApi, db);
+            var heroSeeder = new HeroSeeder(webApi, db);
+            var clanSeeder = new ClanSeeder(webApi, db);
 
-            var matchRepository = new MatchRepository(db);
-            var matchSeeder = new MatchSeeder(matchRepository, webApi, db);
+            heroSeeder.PopulateHeroesTable();
+
+            clanSeeder.PopulateClans();
             matchSeeder.Populate25Matches();
             matchSeeder.PopulateDetailsForMatches();
 
-            var playerSeeder = new PlayerSeeder(webApi, db);
+            // populate playersFromClanPlayers
             playerSeeder.PopulatePlayersFromMatchPlayers();
-
-            var itemSeeder = new ItemSeeder(db);
             itemSeeder.PopulateItemsFromMatchPlayerItems();
-
-            var abilitySeeder = new AbilitySeeder(db);
             abilitySeeder.PopulateAbilitiesFromMatchPlayerAbilities();
-
-            var clanSeeder = new ClanSeeder(webApi, db);
-            clanSeeder.PopulateClans();
+            
+            
         }
     }
 }

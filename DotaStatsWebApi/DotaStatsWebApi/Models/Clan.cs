@@ -7,7 +7,7 @@ namespace DotaStatsWebApi.Models
     public class Clan
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string team_id { get; set; }
+        public int team_id { get; set; }
         public string name { get; set;}
         public string tag { get; set;}
         public string time_created { get; set;}
@@ -27,7 +27,7 @@ namespace DotaStatsWebApi.Models
 
         public Clan(int clanId)
         {
-            Id = clanId;
+            team_id = clanId;
         }
     }
 }

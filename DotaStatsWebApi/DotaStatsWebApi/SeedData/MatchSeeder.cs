@@ -15,11 +15,11 @@ namespace DotaStatsWebApi.SeedData
 
         private readonly MatchRepository _matchRepository;
 
-        public MatchSeeder(MatchRepository matchRepository, SteamApiConnector valveApi, AppHarborDB db)
+        public MatchSeeder(SteamApiConnector valveApi, AppHarborDB db)
         {
-            _matchRepository = matchRepository;
-            _db = db;
             _steamApi = valveApi;
+            _db = db;
+            _matchRepository = new MatchRepository(db);
         }
 
         public void PopulateDetailsForMatches()
@@ -55,6 +55,13 @@ namespace DotaStatsWebApi.SeedData
         public void Populate25Matches()
         {
             var matches = _steamApi.Get25MostRecentMatches();
+            _matchRepository.SaveMatches(matches);
+        }
+
+        public void Populate5Matches()
+        {
+            var matches = _steamApi.Get25MostRecentMatches();
+            matches = matches.Take(5).ToList();
             _matchRepository.SaveMatches(matches);
         }
 

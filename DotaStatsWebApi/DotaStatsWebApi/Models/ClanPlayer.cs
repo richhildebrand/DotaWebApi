@@ -15,9 +15,6 @@ namespace DotaStatsWebApi.Models
         [Key, Column(Order = 1)]
         public int AccountId { get; set; }
 
-        [NotMapped]
-        public Player player { get; set; }
-        
         public ClanPlayer() { }
 
         public ClanPlayer(int accountId, int clanId)

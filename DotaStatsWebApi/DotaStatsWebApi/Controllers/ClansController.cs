@@ -27,19 +27,16 @@ namespace DotaStatsWebApi.Controllers
         public Clan GetClanDetails(int clanId)
         {
             var clan =_db.Clans.FirstOrDefault(c => c.team_id == clanId);
-            var accountIds = _db.ClanPlayers.Where(cp => cp.ClanId == clan.team_id)
-                                            .Select(cp => cp.AccountId)
-                                            .ToList();
+            var clanPlayers = _db.ClanPlayers.Where(cp => cp.ClanId == clan.team_id)
+                                             .ToList();
 
-            var clanMembers = new List<Player>();
-            foreach (var accountId in accountIds)
+            foreach (var clanPlayer in clanPlayers)
             {
-                string id = accountId.ToString();
-                var member = _db.Players.FirstOrDefault(p => p.account_id == id);
-                clanMembers.Add(member);
+                var player = _db.Players.FirstOrDefault(p => p.account_id == clanPlayer.AccountId);
+                clanPlayer.player = player;
             }
 
-            clan.players = clanMembers;
+            clan.clanPlayers = clanPlayers;
             return clan;
         }
 

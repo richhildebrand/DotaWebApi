@@ -23,6 +23,8 @@ namespace DotaStatsWebApi.Models
             AccountId = accountId;
         }
 
+        [NotMapped]
+        public Player player { get; set; }
 
     }
 }

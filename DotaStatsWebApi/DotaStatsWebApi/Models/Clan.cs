@@ -38,7 +38,7 @@ namespace DotaStatsWebApi.Models
 
         //used when sending clans to client
         [NotMapped]
-        public List<Player> players { get; set; }
+        public List<ClanPlayer> clanPlayers { get; set; }
 
         public Clan() { }
 

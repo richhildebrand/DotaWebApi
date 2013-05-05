@@ -43,6 +43,12 @@ namespace DotaStatsWebApi.Repositories
             var matchPlayerItemRepository = new MatchPlayerItemRepository(matchPlayer,_db);
             var items = matchPlayerItemRepository.GetItems();
             matchPlayer.matchPlayerItems = items;
+
+            var matchPlayerAbilities = _db.MatchPlayerAbilities.Where(mpa => mpa.account_id == matchPlayer.account_id
+                                                                          && mpa.match_id == matchPlayer.match_id
+                                                                          && mpa.player_slot == matchPlayer.player_slot);
+            matchPlayer.ability_upgrades = matchPlayerAbilities.ToList();
+            
         }
 
         public void AddMatchPlayers(long matchId, List<MatchPlayer> matchPlayers)

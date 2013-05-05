@@ -42,7 +42,6 @@ namespace DotaStatsWebApi.Models
 
         public Clan() { }
 
-
         public Clan(int clanId)
         {
             team_id = clanId;

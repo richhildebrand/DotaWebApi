@@ -42,13 +42,12 @@ namespace DotaStatsWebApi.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        public List<Match> SearchMatches(string matchInfo)
+        public Match SearchMatches(string matchInfo)
         {
             try
             { 
-                var matchId =long.Parse(matchInfo);
-                return _db.Matches.Where(m => m.match_id == matchId)
-                                  .ToList();
+                var matchId = long.Parse(matchInfo);
+                return _db.Matches.FirstOrDefault(m => m.match_id == matchId);
             }
             catch { return null; }
         }

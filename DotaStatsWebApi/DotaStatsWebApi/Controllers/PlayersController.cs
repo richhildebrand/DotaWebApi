@@ -45,7 +45,7 @@ namespace DotaStatsWebApi.Controllers
         [System.Web.Http.HttpGet]
         public List<Player> SearchPlayers(string playerInfo)
         {
-            return _db.Players.Where(p => p.account_id.Contains(playerInfo)
+            return _db.Players.Where(p => p.account_id == playerInfo
                                        || p.personaname.Contains(playerInfo))
                               .ToList();
         }

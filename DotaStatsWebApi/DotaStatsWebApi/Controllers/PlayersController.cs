@@ -37,7 +37,7 @@ namespace DotaStatsWebApi.Controllers
         }
 
         [System.Web.Http.HttpGet]
-        public List<Player> GetPlayer()
+        public List<Player> GetPlayers()
         {
             return _db.Players.Take(25).ToList();
         }

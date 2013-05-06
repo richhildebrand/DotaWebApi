@@ -40,5 +40,11 @@ namespace DotaStatsWebApi.Controllers
             return clan;
         }
 
+        [System.Web.Http.HttpGet]
+        public List<Clan> SearchClans(string clanInfo)
+        {
+            return _db.Clans.Where(c => c.name.Contains(clanInfo)).ToList();
+        }
+
     }
 }

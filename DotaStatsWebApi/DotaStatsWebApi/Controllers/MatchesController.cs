@@ -40,5 +40,17 @@ namespace DotaStatsWebApi.Controllers
             List<Match> matches = _matchRepository.GetAllCompleteMatches();
             return matches;
         }
+
+        [System.Web.Http.HttpGet]
+        public List<Match> SearchMatches(string matchInfo)
+        {
+            try
+            { 
+                var matchId =long.Parse(matchInfo);
+                return _db.Matches.Where(m => m.match_id == matchId)
+                                  .ToList();
+            }
+            catch { return null; }
+        }
     }
 }

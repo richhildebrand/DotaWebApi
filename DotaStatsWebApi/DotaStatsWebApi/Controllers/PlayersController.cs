@@ -36,5 +36,19 @@ namespace DotaStatsWebApi.Controllers
             return matches;
         }
 
+        [System.Web.Http.HttpGet]
+        public List<Player> GetPlayer()
+        {
+            return _db.Players.Take(25).ToList();
+        }
+
+        [System.Web.Http.HttpGet]
+        public List<Player> SearchPlayers(string playerInfo)
+        {
+            return _db.Players.Where(p => p.account_id.Contains(playerInfo)
+                                       || p.personaname.Contains(playerInfo))
+                              .ToList();
+        }
+
     }
 }
